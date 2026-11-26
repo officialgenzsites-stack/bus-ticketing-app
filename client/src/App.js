@@ -202,7 +202,7 @@ function RouteList() {
 
   React.useEffect(() => {
     setLoading(true);
-    fetch(API_BASE + `/api/routes?source=${source}&destination=${destination}`)
+    fetch('https://bus-ticketing-app-xphx.onrender.com/api/routes?source=' + source + '&destination=' + destination)
       .then(r => r.json())
       .then(data => {
         if (data.success) setRoutes(data.data);
@@ -284,7 +284,7 @@ function BookingForm() {
   const [error, setError] = React.useState('');
 
   React.useEffect(() => {
-    fetch(API_BASE + `/api/routes/${routeId}`)
+    fetch('https://bus-ticketing-app-xphx.onrender.com/api/routes/' + routeId)
       .then(r => r.json())
       .then(data => {
         if (data.success) setRoute(data.data);
@@ -299,7 +299,7 @@ function BookingForm() {
     setError('');
     setSubmitting(true);
     try {
-      const res = await fetch(API_BASE + '/api/book', {
+      const res = await fetch('https://bus-ticketing-app-xphx.onrender.com/api/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ routeId, passengerName: name, age, phone, seatsCount: seats, paymentMethod: payment })
@@ -327,7 +327,6 @@ function BookingForm() {
       <div className="card">
         <div className="section-title">{t('passengerDetails')}</div>
 
-        {/* Route summary pill */}
         <div style={{ background: '#fff5f5', borderRadius: 10, padding: '12px 16px', marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
           <span style={{ fontWeight: 700 }}>{route.source} → {route.destination}</span>
           <span style={{ color: '#888', fontSize: '0.9rem' }}>{route.departure} &nbsp;|&nbsp; {route.busType}</span>
@@ -352,7 +351,6 @@ function BookingForm() {
             </div>
           </div>
 
-          {/* Seats */}
           <div style={{ marginTop: 20 }}>
             <div className="form-group">
               <label>{t('seats')}</label>
@@ -364,7 +362,6 @@ function BookingForm() {
             </div>
           </div>
 
-          {/* Payment */}
           <div style={{ marginTop: 24 }}>
             <div className="section-title" style={{ marginBottom: 12 }}>{t('payment')}</div>
             <div className="payment-grid">
@@ -385,7 +382,6 @@ function BookingForm() {
             </div>
           </div>
 
-          {/* Summary */}
           <div style={{ marginTop: 24, borderTop: '2px solid #eee', paddingTop: 16 }}>
             <table className="summary-table">
               <tbody>
@@ -509,7 +505,6 @@ function useParams() {
 // ─── App Root ─────────────────────────────────────────────────────────────────
 export default function App() {
   const [lang, setLang] = useState('en');
-  const API_BASE = 'https://bus-ticketing-app-xphx.onrender.com';
   const t = (key) => translations[lang][key] || key;
 
   return (

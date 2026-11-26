@@ -202,7 +202,7 @@ function RouteList() {
 
   React.useEffect(() => {
     setLoading(true);
-    fetch(`/api/routes?source=${source}&destination=${destination}`)
+    fetch(API_BASE + `/api/routes?source=${source}&destination=${destination}`)
       .then(r => r.json())
       .then(data => {
         if (data.success) setRoutes(data.data);
@@ -284,7 +284,7 @@ function BookingForm() {
   const [error, setError] = React.useState('');
 
   React.useEffect(() => {
-    fetch(`/api/routes/${routeId}`)
+    fetch(API_BASE + `/api/routes/${routeId}`)
       .then(r => r.json())
       .then(data => {
         if (data.success) setRoute(data.data);
@@ -299,7 +299,7 @@ function BookingForm() {
     setError('');
     setSubmitting(true);
     try {
-      const res = await fetch('/api/book', {
+      const res = await fetch(API_BASE + '/api/book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ routeId, passengerName: name, age, phone, seatsCount: seats, paymentMethod: payment })
@@ -509,6 +509,7 @@ function useParams() {
 // ─── App Root ─────────────────────────────────────────────────────────────────
 export default function App() {
   const [lang, setLang] = useState('en');
+  const API_BASE = import.meta.env.REACT_APP_API_URL || '';
   const t = (key) => translations[lang][key] || key;
 
   return (

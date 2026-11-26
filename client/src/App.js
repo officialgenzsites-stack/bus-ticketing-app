@@ -509,7 +509,7 @@ function useParams() {
 // ─── App Root ─────────────────────────────────────────────────────────────────
 export default function App() {
   const [lang, setLang] = useState('en');
-  const API_BASE = import.meta.env.REACT_APP_API_URL || '';
+  const API_BASE = 'https://bus-ticketing-app-xphx.onrender.com';
   const t = (key) => translations[lang][key] || key;
 
   return (
